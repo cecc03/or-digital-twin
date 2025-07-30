@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OR Digital Twin - Surgical Procedure Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00D9FF;
+            --primary-dark: #00A8CC;
+            --secondary: #00FF88;
+            --danger: #FF4757;
+            --warning: #FFA502;
+            --bg-dark: #0F0F1E;
+            --bg-card: #1A1A2E;
+            --bg-hover: #252545;
+            --text: #E8E8F0;
+            --text-dim: #A0A0B0;
+            --border: #2A2A4A;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sceneRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Status Indicators */
+        .status-indicators {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.3rem;
+        }
+
+        .status-badge {
+            background: var(--bg-hover);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.active {
+            background: var(--secondary);
+            color: var(--bg-dark);
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .status-badge.error {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
+        }
+
+        /* Procedure Selector */
+        .procedure-selector {
+            background: var(--bg-dark);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .procedure-selector:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            animation: slideIn 0.5s ease;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: var(--bg-hover);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #00CC6A 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #FF2E43 100%);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 968px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease backwards;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Phase Progress */
+        .phase-track {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .phase-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .phase-node {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .phase-node.completed {
+            background: var(--secondary);
+            color: var(--bg-dark);
+            border-color: var(--secondary);
+        }
+
+        .phase-node.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        /* Step List */
+        .step-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .step-item {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .step-item.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Enhanced 3D Visualization - CSS Based */
+        .visualization-3d {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            border-radius: 20px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .or-scene {
+            width: 90%;
+            height: 90%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: sceneRotate 30s infinite linear;
+        }
+
+        .or-table {
+            width: 70%;
+            height: 50%;
+            background: linear-gradient(135deg, #2d3561 0%, #1f2544 100%);
+            border-radius: 15px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(15deg);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(0, 217, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 217, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        .lego-block {
+            position: absolute;
+            border-radius: 8px;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .lego-block.platform {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+            transform: translate(-50%, -50%);
+        }
+
+        .lego-block.square {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A24 100%);
+        }
+
+        .lego-block.rectangular {
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+        }
+
+        .lego-block:hover {
+            transform: translateZ(10px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .robot-arm {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #74B9FF 0%, #0984E3 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 0 40px rgba(116, 185, 255, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            transition: all 0.5s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .forceps {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            background: linear-gradient(90deg, #636e72 0%, #95afc0 50%, #636e72 100%);
+            border-radius: 10px;
+            transform-origin: 10% 50%;
+            transition: all 0.5s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Surgical Instruments Display */
+        .surgical-instruments {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .instrument-item {
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .instrument-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .instrument-item.active {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px var(--primary));
+        }
+
+        /* Sensor Grid */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .sensor-card {
+            background: var(--bg-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border);
+            cursor: pointer;
+        }
+
+        .sensor-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .sensor-card.alert {
+            border-color: var(--danger);
+            background: rgba(255, 71, 87, 0.1);
+            animation: pulse 1s infinite;
+        }
+
+        .sensor-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sensor-label {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .sensor-status {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Console */
+        .console {
+            background: #000;
+            border-radius: 15px;
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .console-line {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .console-line.info { color: var(--text); }
+        .console-line.success { color: var(--secondary); }
+        .console-line.warning { color: var(--warning); }
+        .console-line.error { color: var(--danger); }
+
+        .console-timestamp {
+            color: var(--text-dim);
+            margin-right: 1rem;
+        }
+
+        /* Question Panel */
+        .question-panel {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-hover) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--primary);
+            display: none;
+            margin-bottom: 2rem;
+        }
+
+        .question-panel.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        #questionAnswer {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border-radius: 10px;
+            display: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid var(--danger);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--danger);
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Camera Controls */
+        .camera-controls {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .camera-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 217, 255, 0.2);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .camera-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">🏥</div>
+                <div class="logo-text">
+                    <h1>OR Digital Twin</h1>
+                    <p>Surgical Procedure Simulator</p>
+                </div>
+            </div>
+            <div class="status-indicators">
+                <div class="status-item">
+                    <span class="status-label">System Status</span>
+                    <div class="status-badge" id="systemStatus">Offline</div>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Validation</span>
+                    <div class="status-badge" id="validationStatus">Ready</div>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Procedure</span>
+                    <select class="procedure-selector" id="procedureSelector">
+                        <option value="LegoAssembly">Lego Assembly</option>
+                        <option value="LaparoscopicProcedure">Laparoscopic</option>
+                        <option value="MicrosurgicalProcedure">Microsurgical</option>
+                        <option value="RoboticProcedure">Robotic</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="controls">
+                <button class="btn" onclick="initializeSimulation()" id="initBtn">
+                    🚀 Initialize System
+                </button>
+                <button class="btn btn-secondary" onclick="startSimulation()" id="startBtn" disabled>
+                    ▶️ Start
+                </button>
+                <button class="btn" onclick="pauseSimulation()" id="pauseBtn" disabled>
+                    ⏸️ Pause
+                </button>
+                <button class="btn" onclick="stepSimulation()" id="stepBtn" disabled>
+                    ⏭️ Single Step
+                </button>
+                <button class="btn btn-danger" onclick="resetSimulation()">
+                    🔄 Reset
+                </button>
+                <button class="btn" onclick="toggleQuestionMode()">
+                    ❓ Questions
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard">
+            <!-- Phase Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        📊 Procedure Progress
+                    </h2>
+                    <span id="currentPhase" class="status-badge">Phase 1</span>
+                </div>
+                <div class="phase-track" id="phaseTrack">
+                    <!-- Phases will be dynamically generated based on procedure -->
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary);">
+                        Active Steps
+                    </h3>
+                    <div class="step-list" id="stepList">
+                        <div class="step-item">
+                            <span>No active steps</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Visualization Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        🔬 Procedure Visualization
+                    </h2>
+                    <span id="currentProcedure" class="status-badge">Lego Assembly</span>
+                </div>
+                <div class="visualization-3d" id="visualization3d">
+                    <!-- CSS 3D scene for Lego -->
+                    <div class="or-scene" id="orScene" style="display: none;">
+                        <div class="or-table" id="orTable">
+                            <div class="grid-overlay"></div>
+                            <!-- Dynamic elements will be added here -->
+                        </div>
+                    </div>
+                    <!-- Surgical instruments for other procedures -->
+                    <div class="surgical-instruments" id="instrumentDisplay" style="display: none;">
+                        <div class="instrument-item" id="scalpel">
+                            <div class="instrument-icon">🔪</div>
+                            <div>Scalpel</div>
+                        </div>
+                        <div class="instrument-item" id="forceps">
+                            <div class="instrument-icon">🔧</div>
+                            <div>Forceps</div>
+                        </div>
+                        <div class="instrument-item" id="suture">
+                            <div class="instrument-icon">🧵</div>
+                            <div>Suture</div>
+                        </div>
+                        <div class="instrument-item" id="cautery">
+                            <div class="instrument-icon">⚡</div>
+                            <div>Cautery</div>
+                        </div>
+                        <div class="instrument-item" id="microscope">
+                            <div class="instrument-icon">🔬</div>
+                            <div>Microscope</div>
+                        </div>
+                        <div class="instrument-item" id="robot">
+                            <div class="instrument-icon">🤖</div>
+                            <div>Robot</div>
+                        </div>
+                    </div>
+                    <div class="camera-controls" id="cameraControls" style="display: none;">
+                        <div class="camera-btn" onclick="rotateCamera('left')" title="Rotate Left">⬅</div>
+                        <div class="camera-btn" onclick="rotateCamera('right')" title="Rotate Right">➡</div>
+                        <div class="camera-btn" onclick="zoomCamera('in')" title="Zoom In">+</div>
+                        <div class="camera-btn" onclick="zoomCamera('out')" title="Zoom Out">-</div>
+                        <div class="camera-btn" onclick="resetCamera()" title="Reset View">🎯</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor Status Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        📡 System Sensors
+                    </h2>
+                </div>
+                <div class="sensor-grid">
+                    <div class="sensor-card" id="instrumentSensor">
+                        <div class="sensor-icon">🔧</div>
+                        <div class="sensor-label">Instruments</div>
+                        <div class="sensor-status">Ready</div>
+                    </div>
+                    <div class="sensor-card" id="tissueSensor">
+                        <div class="sensor-icon">🫀</div>
+                        <div class="sensor-label">Tissue Status</div>
+                        <div class="sensor-status">Normal</div>
+                    </div>
+                    <div class="sensor-card" id="actorSensor">
+                        <div class="sensor-icon">👥</div>
+                        <div class="sensor-label">Actors</div>
+                        <div class="sensor-status">Present</div>
+                    </div>
+                    <div class="sensor-card" id="forceSensor">
+                        <div class="sensor-icon">💪</div>
+                        <div class="sensor-label">Force</div>
+                        <div class="sensor-status">Optimal</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        💻 System Console
+                    </h2>
+                    <button class="btn btn-small" onclick="clearConsole()">Clear</button>
+                </div>
+                <div class="console" id="console">
+                    <div class="console-line info">
+                        <span class="console-timestamp">[00:00:00]</span>
+                        System ready. Click 'Initialize System' to begin.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Panel -->
+        <div class="question-panel" id="questionPanel">
+            <div class="card-header">
+                <h2 class="card-title">
+                    ❓ Ask About Current Step
+                </h2>
+            </div>
+            <div class="question-grid">
+                <button class="btn" onclick="askQuestion('instruments')">
+                    🔧 Required Instruments
+                </button>
+                <button class="btn" onclick="askQuestion('actors')">
+                    👥 Required Actors
+                </button>
+                <button class="btn" onclick="askQuestion('tissues')">
+                    🫀 Target Tissues
+                </button>
+                <button class="btn" onclick="askQuestion('capabilities')">
+                    💪 Required Capabilities
+                </button>
+            </div>
+            <div id="questionAnswer">
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">⚠️</div>
+                <h3>Constraint Violation Detected</h3>
+            </div>
+            <div id="errorMessage" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="acknowledgeError()">
+                    Acknowledge & Continue
+                </button>
+                <button class="btn" onclick="closeError()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let simulationState = {
+            initialized: false,
+            running: false,
+            currentSteps: [],
+            currentPhase: '',
+            currentProcedure: 'LegoAssembly',
+            violationOccurred: false,
+            sceneRotation: 0,
+            zoom: 1
+        };
+
+        let sceneElements = {
+            blocks: new Map(),
+            robotArm: null,
+            forceps: null
+        };
+
+        let intervalId = null;
+
+        const PROCEDURE_PHASES = {
+            'LegoAssembly': {
+                phases: ['Phase1', 'Phase2', 'Phase3', 'Phase4', 'Phase5'],
+                phaseLabels: ['Preparation', 'Base Layer', 'Middle Layer', 'Top Layer', 'Quality Check'],
+                stepToPhase: {
+                    'Step_A1_1': 0, 'Step_A1_2': 0, 'Step_A1_3': 0, 'Step_A1_4': 0,
+                    'Step_A2_1': 1, 'Step_A2_2': 1, 'Step_A2_3': 1,
+                    'Step_A3_1': 2, 'Step_A3_2': 2,
+                    'Step_A4_1': 3, 'Step_A4_2': 3, 'Step_A4_3': 3, 'Step_A4_4': 3,
+                    'Step_A5_1': 4, 'Step_A5_2': 4
+                }
+            },
+            'LaparoscopicProcedure': {
+                phases: ['Phase1', 'Phase2', 'Phase3'],
+                phaseLabels: ['Setup', 'Incision', 'Main Procedure'],
+                stepToPhase: {
+                    'Step_L1_1': 0, 'Step_L1_2': 0,
+                    'Step_L2_1': 1, 'Step_L2_2': 1,
+                    'Step_L3_1': 2, 'Step_L3_2': 2, 'Step_L3_3': 2
+                }
+            },
+            'MicrosurgicalProcedure': {
+                phases: ['Phase1', 'Phase2', 'Phase3'],
+                phaseLabels: ['Microscope Setup', 'Precision Work', 'Closure'],
+                stepToPhase: {
+                    'Step_M1_1': 0, 'Step_M1_2': 0,
+                    'Step_M2_1': 1, 'Step_M2_2': 1,
+                    'Step_M3_1': 2, 'Step_M3_2': 2
+                }
+            },
+            'RoboticProcedure': {
+                phases: ['Phase1', 'Phase2', 'Phase3'],
+                phaseLabels: ['Robot Docking', 'Operation', 'Completion'],
+                stepToPhase: {
+                    'Step_R1_1': 0, 'Step_R1_2': 0,
+                    'Step_R2_1': 1, 'Step_R2_2': 1, 'Step_R2_3': 1,
+                    'Step_R3_1': 2
+                }
+            }
+        };
+
+        const API = {
+            init: (procedure) => fetch('/init', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ procedure })
+            }).then(r => r.json()),
+
+            step: () => fetch('/step', { method: 'POST' }).then(r => r.json()),
+
+            state: () => fetch('/state').then(r => r.json()),
+
+            switchProcedure: (procedure) => fetch('/switch-procedure', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ procedure })
+            }).then(r => r.json()),
+
+            question: (q) => fetch('/question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: q })
+            }).then(r => r.json())
+        };
+
+        function log(message, type = 'info') {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.innerHTML = `<span class="console-timestamp">[${timestamp}]</span>${message}`;
+            console.appendChild(line);
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+            log('Console cleared', 'info');
+        }
+
+        async function initializeSimulation() {
+            const btn = document.getElementById('initBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin: 0 auto;"></div>';
+
+            try {
+                const procedure = document.getElementById('procedureSelector').value;
+                log(`Initializing OR Digital Twin with ${procedure}...`, 'info');
+
+                const response = await API.init(procedure);
+
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+
+                updateState(response);
+
+                document.getElementById('systemStatus').textContent = 'Online';
+                document.getElementById('systemStatus').classList.add('active');
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stepBtn').disabled = false;
+
+                updateVisualizationMode(procedure);
+
+                log('✅ System initialized successfully', 'success');
+
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+                document.getElementById('systemStatus').textContent = 'Error';
+                document.getElementById('systemStatus').classList.add('error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🚀 Initialize System';
+            }
+        }
+
+        function updateVisualizationMode(procedure) {
+            const orScene = document.getElementById('orScene');
+            const instrumentDisplay = document.getElementById('instrumentDisplay');
+            const cameraControls = document.getElementById('cameraControls');
+
+            if (procedure === 'LegoAssembly') {
+                orScene.style.display = 'block';
+                instrumentDisplay.style.display = 'none';
+                cameraControls.style.display = 'flex';
+                init3DScene();
+            } else {
+                orScene.style.display = 'none';
+                instrumentDisplay.style.display = 'grid';
+                cameraControls.style.display = 'none';
+                clearScene();
+            }
+        }
+
+        function init3DScene() {
+            const table = document.getElementById('orTable');
+            table.innerHTML = '<div class="grid-overlay"></div>';
+            sceneElements.blocks.clear();
+
+            addLegoBlock('platform', {
+                type: 'platform',
+                position: { x: 50, y: 50 }
+            });
+
+            addRobotArm();
+
+            log('3D scene initialized', 'info');
+        }
+
+        function clearScene() {
+            const table = document.getElementById('orTable');
+            table.innerHTML = '<div class="grid-overlay"></div>';
+            sceneElements.blocks.clear();
+            sceneElements.robotArm = null;
+            sceneElements.forceps = null;
+        }
+
+        function addLegoBlock(id, config) {
+            const table = document.getElementById('orTable');
+            const existing = sceneElements.blocks.get(id);
+
+            if (existing) {
+                existing.remove();
+            }
+
+            const block = document.createElement('div');
+            block.className = `lego-block ${config.type}`;
+            block.id = `block-${id}`;
+            block.style.left = `${config.position.x}%`;
+            block.style.top = `${config.position.y}%`;
+
+            table.appendChild(block);
+            sceneElements.blocks.set(id, block);
+
+            block.style.opacity = '0';
+            block.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            setTimeout(() => {
+                block.style.transition = 'all 0.5s ease';
+                block.style.opacity = '1';
+                block.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 50);
+        }
+
+        function addRobotArm() {
+            const table = document.getElementById('orTable');
+
+            if (sceneElements.robotArm) {
+                sceneElements.robotArm.remove();
+            }
+
+            const arm = document.createElement('div');
+            arm.className = 'robot-arm';
+            arm.id = 'robotArm';
+            arm.style.left = '20%';
+            arm.style.top = '20%';
+
+            table.appendChild(arm);
+            sceneElements.robotArm = arm;
+        }
+
+        function moveRobotArm(x, y) {
+            if (sceneElements.robotArm) {
+                sceneElements.robotArm.style.transition = 'all 1s ease';
+                sceneElements.robotArm.style.left = `${x}%`;
+                sceneElements.robotArm.style.top = `${y}%`;
+            }
+        }
+
+        function addForceps(x, y) {
+            const table = document.getElementById('orTable');
+
+            if (sceneElements.forceps) {
+                sceneElements.forceps.remove();
+            }
+
+            const forceps = document.createElement('div');
+            forceps.className = 'forceps';
+            forceps.style.left = `${x}%`;
+            forceps.style.top = `${y}%`;
+
+            table.appendChild(forceps);
+            sceneElements.forceps = forceps;
+
+            forceps.style.opacity = '0';
+            setTimeout(() => {
+                forceps.style.transition = 'all 0.5s ease';
+                forceps.style.opacity = '1';
+            }, 50);
+        }
+
+        function rotateCamera(direction) {
+            const scene = document.getElementById('orScene');
+            if (direction === 'left') {
+                simulationState.sceneRotation -= 45;
+            } else {
+                simulationState.sceneRotation += 45;
+            }
+            scene.style.animation = 'none';
+            scene.style.transform = `rotateY(${simulationState.sceneRotation}deg)`;
+        }
+
+        function zoomCamera(direction) {
+            const scene = document.getElementById('orScene');
+            if (direction === 'in') {
+                simulationState.zoom = Math.min(simulationState.zoom + 0.2, 2);
+            } else {
+                simulationState.zoom = Math.max(simulationState.zoom - 0.2, 0.5);
+            }
+            scene.style.transform = `rotateY(${simulationState.sceneRotation}deg) scale(${simulationState.zoom})`;
+        }
+
+        function resetCamera() {
+            const scene = document.getElementById('orScene');
+            simulationState.sceneRotation = 0;
+            simulationState.zoom = 1;
+            scene.style.animation = 'sceneRotate 30s infinite linear';
+            scene.style.transform = '';
+        }
+
+        function update3DVisualization() {
+            if (simulationState.currentProcedure !== 'LegoAssembly') return;
+
+            const step = simulationState.currentSteps[0];
+            if (!step) return;
+
+            switch(step) {
+                case 'Step_A1_2':
+                    addForceps(70, 30);
+                    log('🔧 Forceps added to scene', 'info');
+                    break;
+                case 'Step_A1_3':
+                    addLegoBlock('lego4', {
+                        type: 'rectangular',
+                        position: { x: 30, y: 70 }
+                    });
+                    log('🧩 Lego block 4 added', 'info');
+                    break;
+                case 'Step_A2_2':
+                    moveRobotArm(30, 70);
+                    log('🦾 Robot arm moved to pick up position', 'info');
+                    break;
+                case 'Step_A2_3':
+                    addLegoBlock('lego4', {
+                        type: 'rectangular',
+                        position: { x: 50, y: 50 }
+                    });
+                    moveRobotArm(50, 50);
+                    log('🧩 Lego block placed at center', 'info');
+                    break;
+                case 'Step_A3_1':
+                    moveRobotArm(50, 30);
+                    log('📷 Checking position', 'info');
+                    break;
+                case 'Step_A3_2':
+                    log('📝 Recording observations', 'info');
+                    break;
+                case 'Step_A4_1':
+                    moveRobotArm(35, 35);
+                    log('📷 Camera positioned for micro vision', 'info');
+                    break;
+                case 'Step_A4_2':
+                    log('👁️ Identifying correct Lego', 'info');
+                    break;
+                case 'Step_A4_3':
+                    if (sceneElements.forceps) {
+                        sceneElements.forceps.style.transform = 'rotate(45deg)';
+                    }
+                    log('🔧 Forceps gripping', 'info');
+                    break;
+                case 'Step_A4_4':
+                    addLegoBlock('lego5', {
+                        type: 'square',
+                        position: { x: 50, y: 40 }
+                    });
+                    log('🧩 Final Lego block placed', 'info');
+                    break;
+                case 'Step_A5_1':
+                    moveRobotArm(50, 40);
+                    log('✅ Final quality check', 'info');
+                    break;
+                case 'Step_A5_2':
+                    log('📄 Documentation complete', 'info');
+                    break;
+            }
+        }
+
+        async function switchProcedure() {
+            const procedure = document.getElementById('procedureSelector').value;
+
+            if (!simulationState.initialized) {
+                log('Please initialize the system first', 'warning');
+                return;
+            }
+
+            try {
+                log(`Switching to ${procedure}...`, 'info');
+                const response = await API.switchProcedure(procedure);
+
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+
+                updateState(response);
+                updateVisualizationMode(procedure);
+                log(`✅ Switched to ${procedure}`, 'success');
+
+            } catch (error) {
+                log(`❌ Failed to switch procedure: ${error.message}`, 'error');
+            }
+        }
+
+        function updateState(response) {
+            simulationState = {
+                ...simulationState,
+                initialized: true,
+                currentSteps: response.steps || [],
+                currentPhase: response.phase || '',
+                currentProcedure: response.procedure || 'LegoAssembly',
+                violationOccurred: response.violation || false,
+                ongoing: response.ongoing !== false
+            };
+
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('currentProcedure').textContent = simulationState.currentProcedure;
+
+            const valStatus = document.getElementById('validationStatus');
+            if (simulationState.violationOccurred) {
+                valStatus.textContent = 'Invalid';
+                valStatus.classList.add('error');
+                valStatus.classList.remove('active');
+            } else {
+                valStatus.textContent = 'Valid';
+                valStatus.classList.remove('error');
+                valStatus.classList.add('active');
+            }
+
+            updatePhaseDisplay();
+            updateStepList();
+
+            if (simulationState.currentProcedure !== 'LegoAssembly') {
+                updateSurgicalVisualization();
+            } else {
+                update3DVisualization();
+            }
+        }
+
+        function getCorrectPhaseIndex() {
+            const config = PROCEDURE_PHASES[simulationState.currentProcedure];
+            if (!config) return 0;
+
+            if (simulationState.currentSteps.length > 0) {
+                const currentStep = simulationState.currentSteps[0];
+                const phaseIndex = config.stepToPhase[currentStep];
+                if (phaseIndex !== undefined) {
+                    return phaseIndex;
+                }
+            }
+
+            const phaseMatch = simulationState.currentPhase.match(/(\d+)/);
+            if (phaseMatch) {
+                return parseInt(phaseMatch[1]) - 1;
+            }
+
+            return 0;
+        }
+
+        function updatePhaseDisplay() {
+            const track = document.getElementById('phaseTrack');
+            const config = PROCEDURE_PHASES[simulationState.currentProcedure];
+
+            if (!config) return;
+
+            const phaseIndex = getCorrectPhaseIndex();
+
+            const correctPhase = config.phases[phaseIndex] || simulationState.currentPhase;
+            document.getElementById('currentPhase').textContent = correctPhase;
+
+            track.innerHTML = '';
+            config.phaseLabels.forEach((label, idx) => {
+                const node = document.createElement('div');
+                node.className = 'phase-node';
+
+                if (idx < phaseIndex) {
+                    node.classList.add('completed');
+                } else if (idx === phaseIndex) {
+                    node.classList.add('active');
+                }
+
+                node.textContent = (idx + 1).toString();
+                node.title = label;
+                track.appendChild(node);
+            });
+        }
+
+        function updateStepList() {
+            const list = document.getElementById('stepList');
+            list.innerHTML = '';
+
+            if (simulationState.currentSteps.length === 0) {
+                list.innerHTML = '<div class="step-item"><span>No active steps</span></div>';
+                return;
+            }
+
+            simulationState.currentSteps.forEach(step => {
+                const item = document.createElement('div');
+                item.className = 'step-item active';
+                item.innerHTML = `
+                    <span>${step}</span>
+                    <span>🔄 Executing</span>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function updateSurgicalVisualization() {
+            const instruments = document.querySelectorAll('.instrument-item');
+            instruments.forEach(i => i.classList.remove('active'));
+
+            const procedureInstruments = {
+                'LaparoscopicProcedure': ['scalpel', 'cautery'],
+                'MicrosurgicalProcedure': ['microscope', 'forceps'],
+                'RoboticProcedure': ['robot', 'suture']
+            };
+
+            const activeInstruments = procedureInstruments[simulationState.currentProcedure] || [];
+            activeInstruments.forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) elem.classList.add('active');
+            });
+        }
+
+        function startSimulation() {
+            if (!simulationState.initialized) {
+                log('System not initialized!', 'error');
+                return;
+            }
+
+            simulationState.running = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
+            log('▶️ Simulation started', 'success');
+
+            runSimulationLoop();
+        }
+
+        function pauseSimulation() {
+            simulationState.running = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+
+            log('⏸️ Simulation paused', 'warning');
+        }
+
+        async function stepSimulation() {
+            if (!simulationState.initialized) {
+                log('System not initialized!', 'error');
+                return;
+            }
+
+            try {
+                log('Executing step...', 'info');
+                const response = await API.step();
+
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+
+                updateState(response);
+
+                if (response.validationDetails && !response.validationDetails.conforms) {
+                    handleViolation(response.validationDetails);
+                } else if (!response.ongoing) {
+                    log('✅ Procedure complete!', 'success');
+                    pauseSimulation();
+                }
+
+            } catch (error) {
+                log(`❌ Step failed: ${error.message}`, 'error');
+                pauseSimulation();
+            }
+        }
+
+        function runSimulationLoop() {
+            if (!simulationState.running) return;
+
+            intervalId = setInterval(async () => {
+                if (!simulationState.running) {
+                    clearInterval(intervalId);
+                    return;
+                }
+
+                await stepSimulation();
+            }, 2000);
+        }
+
+        function handleViolation(details) {
+            log('⚠️ Constraint violation detected', 'error');
+            pauseSimulation();
+
+            const modal = document.getElementById('errorModal');
+            const message = document.getElementById('errorMessage');
+
+            if (details.violations && details.violations.length > 0) {
+                const messages = details.violations.map(v => {
+                    const sensorMsg = v.sensor_message || v.message || 'Unknown violation';
+                    return `<p><strong>${v.focusNode}:</strong> ${sensorMsg}</p>`;
+                });
+                message.innerHTML = messages.join('');
+            } else {
+                message.textContent = 'Unknown violation occurred';
+            }
+
+            modal.classList.add('active');
+            updateSensorAlerts(details.violations);
+        }
+
+        function updateSensorAlerts(violations) {
+            document.querySelectorAll('.sensor-card').forEach(card => {
+                card.classList.remove('alert');
+                card.querySelector('.sensor-status').textContent = 'Normal';
+            });
+
+            violations.forEach(v => {
+                const msg = (v.sensor_message || v.message || '').toLowerCase();
+
+                if (msg.includes('instrument') || msg.includes('scalpel') || msg.includes('forceps')) {
+                    const sensor = document.getElementById('instrumentSensor');
+                    sensor.classList.add('alert');
+                    sensor.querySelector('.sensor-status').textContent = 'Missing';
+                }
+                if (msg.includes('tissue') || msg.includes('target')) {
+                    const sensor = document.getElementById('tissueSensor');
+                    sensor.classList.add('alert');
+                    sensor.querySelector('.sensor-status').textContent = 'Issue';
+                }
+                if (msg.includes('force') || msg.includes('tension')) {
+                    const sensor = document.getElementById('forceSensor');
+                    sensor.classList.add('alert');
+                    sensor.querySelector('.sensor-status').textContent = 'Incorrect';
+                }
+                if (msg.includes('actor') || msg.includes('surgeon') || msg.includes('robot')) {
+                    const sensor = document.getElementById('actorSensor');
+                    sensor.classList.add('alert');
+                    sensor.querySelector('.sensor-status').textContent = 'Required';
+                }
+            });
+        }
+
+        function toggleQuestionMode() {
+            const panel = document.getElementById('questionPanel');
+            panel.classList.toggle('active');
+
+            if (panel.classList.contains('active')) {
+                log('❓ Entered question mode', 'info');
+            } else {
+                log('Exited question mode', 'info');
+            }
+        }
+
+        async function askQuestion(type) {
+            const answerDiv = document.getElementById('questionAnswer');
+            answerDiv.style.display = 'block';
+            answerDiv.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const response = await API.question(type);
+
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+
+                answerDiv.innerHTML = `<strong>Answer:</strong> ${response.answer}`;
+                log(`Question answered: ${type}`, 'info');
+
+            } catch (error) {
+                answerDiv.innerHTML = `<span style="color: var(--danger);">Error: ${error.message}</span>`;
+                log(`Question failed: ${error.message}`, 'error');
+            }
+        }
+
+        function acknowledgeError() {
+            log('Acknowledged violation, continuing...', 'warning');
+            document.getElementById('errorModal').classList.remove('active');
+
+            setTimeout(() => {
+                document.querySelectorAll('.sensor-card').forEach(card => {
+                    card.classList.remove('alert');
+                    card.querySelector('.sensor-status').textContent = 'Normal';
+                });
+
+                log('✅ Issues resolved', 'success');
+            }, 1000);
+        }
+
+        function closeError() {
+            document.getElementById('errorModal').classList.remove('active');
+        }
+
+        function resetSimulation() {
+            simulationState = {
+                initialized: false,
+                running: false,
+                currentSteps: [],
+                currentPhase: '',
+                currentProcedure: 'LegoAssembly',
+                violationOccurred: false,
+                sceneRotation: 0,
+                zoom: 1
+            };
+
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+
+            document.getElementById('systemStatus').textContent = 'Offline';
+            document.getElementById('systemStatus').classList.remove('active', 'error');
+            document.getElementById('validationStatus').textContent = 'Ready';
+            document.getElementById('validationStatus').classList.remove('active', 'error');
+
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stepBtn').disabled = true;
+
+            document.getElementById('phaseTrack').innerHTML = '';
+            document.getElementById('stepList').innerHTML = '<div class="step-item"><span>No active steps</span></div>';
+
+            document.querySelectorAll('.sensor-card').forEach(card => {
+                card.classList.remove('alert');
+                card.querySelector('.sensor-status').textContent = 'Ready';
+            });
+
+            document.querySelectorAll('.instrument-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            clearScene();
+            resetCamera();
+            clearConsole();
+            log('System reset. Click "Initialize System" to begin.', 'info');
+        }
+
+        window.addEventListener('load', () => {
+            log('OR Digital Twin interface loaded', 'info');
+            log('Select a procedure and click "Initialize System" to begin', 'info');
+
+            document.getElementById('procedureSelector').addEventListener('change', switchProcedure);
+        });
+    </script>
+</body>
+</html>

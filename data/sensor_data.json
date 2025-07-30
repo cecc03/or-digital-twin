@@ -1,0 +1,746 @@
+{
+  "procedures": {
+    "LegoAssembly": {
+      "Step_A1_1": {
+        "message": "Initial setup - checking workspace",
+        "triples": [
+          {
+            "subject": "Step_A1_1",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A1_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Scribe"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A1_2": {
+        "message": "Gathering tools - forceps required",
+        "triples": [
+          {
+            "subject": "Step_A1_2",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A1_2",
+            "predicate": "toolUsed",
+            "object": "Forceps"
+          },
+          {
+            "subject": "Step_A1_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Nurse"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A1_3": {
+        "message": "Gathering materials",
+        "triples": [
+          {
+            "subject": "Step_A1_3",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A1_3",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Nurse"
+          },
+          {
+            "subject": "Step_A1_3",
+            "predicate": "materialUsed",
+            "object": "Lego_4"
+          },
+          {
+            "subject": "Step_A1_3",
+            "predicate": "materialUsed",
+            "object": "Lego_Platform"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A1_4": {
+        "message": "Organizing materials",
+        "triples": [
+          {
+            "subject": "Step_A1_4",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A1_4",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Nurse"
+          },
+          {
+            "subject": "Step_A1_4",
+            "predicate": "materialUsed",
+            "object": "Lego_Platform"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A2_1": {
+        "message": "Identifying correct Lego block",
+        "triples": [
+          {
+            "subject": "Step_A2_1",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A2_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A2_2": {
+        "message": "⚠️ Missing forceps! Cannot pick up Lego block.",
+        "triples": [
+          {
+            "subject": "Step_A2_2",
+            "predicate": "requiresCapability",
+            "object": "Grasping"
+          },
+          {
+            "subject": "Step_A2_2",
+            "predicate": "toolUsed",
+            "object": "Forceps"
+          },
+          {
+            "subject": "Step_A2_2",
+            "predicate": "materialUsed",
+            "object": "Lego_4"
+          },
+          {
+            "subject": "Step_A2_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A2_3": {
+        "message": "Placing Lego block in correct orientation",
+        "triples": [
+          {
+            "subject": "Step_A2_3",
+            "predicate": "requiresCapability",
+            "object": "Turning"
+          },
+          {
+            "subject": "Step_A2_3",
+            "predicate": "toolUsed",
+            "object": "Forceps"
+          },
+          {
+            "subject": "Step_A2_3",
+            "predicate": "materialUsed",
+            "object": "Lego_4"
+          },
+          {
+            "subject": "Step_A2_3",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A3_1": {
+        "message": "Checking position and orientation",
+        "triples": [
+          {
+            "subject": "Step_A3_1",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A3_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A3_2": {
+        "message": "Recording observations",
+        "triples": [
+          {
+            "subject": "Step_A3_2",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A3_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Scribe"
+          },
+          {
+            "subject": "Step_A3_2",
+            "predicate": "toolUsed",
+            "object": "Pen"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A4_1": {
+        "message": "Positioning camera for micro vision",
+        "triples": [
+          {
+            "subject": "Step_A4_1",
+            "predicate": "requiresCapability",
+            "object": "Micro_Vision"
+          },
+          {
+            "subject": "Step_A4_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Robotic_Arm"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A4_2": {
+        "message": "⚠️ Robotic arm not responding! Manual override required.",
+        "triples": [
+          {
+            "subject": "Step_A4_2",
+            "predicate": "requiresCapability",
+            "object": "Micro_Vision"
+          },
+          {
+            "subject": "Step_A4_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A4_3": {
+        "message": "Picking up final Lego block",
+        "triples": [
+          {
+            "subject": "Step_A4_3",
+            "predicate": "requiresCapability",
+            "object": "Grasping"
+          },
+          {
+            "subject": "Step_A4_3",
+            "predicate": "toolUsed",
+            "object": "Forceps"
+          },
+          {
+            "subject": "Step_A4_3",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A4_4": {
+        "message": "Final placement with precision",
+        "triples": [
+          {
+            "subject": "Step_A4_4",
+            "predicate": "requiresCapability",
+            "object": "Turning"
+          },
+          {
+            "subject": "Step_A4_4",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Surgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A5_1": {
+        "message": "Final quality check",
+        "triples": [
+          {
+            "subject": "Step_A5_1",
+            "predicate": "requiresCapability",
+            "object": "Micro_Vision"
+          },
+          {
+            "subject": "Step_A5_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Robotic_Arm"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_A5_2": {
+        "message": "Documentation complete",
+        "triples": [
+          {
+            "subject": "Step_A5_2",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_A5_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "Scribe"
+          }
+        ],
+        "action": "add"
+      }
+    },
+    "LaparoscopicProcedure": {
+      "Step_L1_1": {
+        "message": "Initial incision with scalpel",
+        "triples": [
+          {
+            "subject": "Step_L1_1",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_L1_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_L1_1",
+            "predicate": "hasInstrument",
+            "object": "Scalpel"
+          },
+          {
+            "subject": "Step_L1_1",
+            "predicate": "targetTissue",
+            "object": "Skin"
+          },
+          {
+            "subject": "Step_L1_1",
+            "predicate": "forceValue",
+            "object": 0.3
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L1_2": {
+        "message": "⚠️ Tissue retraction requires retractor! Assistant surgeon needed.",
+        "triples": [
+          {
+            "subject": "Step_L1_2",
+            "predicate": "requiresCapability",
+            "object": "AssistSkill"
+          },
+          {
+            "subject": "Step_L1_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "AssistantSurgeon"
+          },
+          {
+            "subject": "Step_L1_2",
+            "predicate": "hasInstrument",
+            "object": "Retractor"
+          },
+          {
+            "subject": "Step_L1_2",
+            "predicate": "targetTissue",
+            "object": "Fascia"
+          },
+          {
+            "subject": "Step_L1_2",
+            "predicate": "forceValue",
+            "object": 0.5
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L2_1": {
+        "message": "Inserting laparoscopic camera",
+        "triples": [
+          {
+            "subject": "Step_L2_1",
+            "predicate": "requiresCapability",
+            "object": "VisionCapability"
+          },
+          {
+            "subject": "Step_L2_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_L2_1",
+            "predicate": "hasInstrument",
+            "object": "LaparoscopicCamera"
+          },
+          {
+            "subject": "Step_L2_1",
+            "predicate": "targetTissue",
+            "object": "AbdominalWall"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L2_2": {
+        "message": "Beginning main laparoscopic procedure",
+        "triples": [
+          {
+            "subject": "Step_L2_2",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_L2_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_L2_2",
+            "predicate": "hasInstrument",
+            "object": "Forceps"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L3_1": {
+        "message": "Cauterization of blood vessels",
+        "triples": [
+          {
+            "subject": "Step_L3_1",
+            "predicate": "requiresCapability",
+            "object": "PrecisionGraspingSkill"
+          },
+          {
+            "subject": "Step_L3_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_L3_1",
+            "predicate": "hasInstrument",
+            "object": "Electrocautery"
+          },
+          {
+            "subject": "Step_L3_1",
+            "predicate": "targetTissue",
+            "object": "BloodVessel"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L3_2": {
+        "message": "⚠️ Force value exceeding safe limits! Reduce pressure.",
+        "triples": [
+          {
+            "subject": "Step_L3_2",
+            "predicate": "forceValue",
+            "object": 1.5
+          }
+        ],
+        "action": "add"
+      },
+      "Step_L3_3": {
+        "message": "Closing incision with sutures",
+        "triples": [
+          {
+            "subject": "Step_L3_3",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_L3_3",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_L3_3",
+            "predicate": "hasInstrument",
+            "object": "NeedleHolder"
+          },
+          {
+            "subject": "Step_L3_3",
+            "predicate": "targetTissue",
+            "object": "Skin"
+          }
+        ],
+        "action": "add"
+      }
+    },
+    "MicrosurgicalProcedure": {
+      "Step_M1_1": {
+        "message": "Microsurgical incision on retinal membrane",
+        "triples": [
+          {
+            "subject": "Step_M1_1",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_M1_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_M1_1",
+            "predicate": "hasInstrument",
+            "object": "Microscope"
+          },
+          {
+            "subject": "Step_M1_1",
+            "predicate": "targetTissue",
+            "object": "RetinalMembrane"
+          },
+          {
+            "subject": "Step_M1_1",
+            "predicate": "forceValue",
+            "object": 0.1
+          }
+        ],
+        "action": "add"
+      },
+      "Step_M1_2": {
+        "message": "⚠️ Microscope calibration required! Vision not optimal.",
+        "triples": [
+          {
+            "subject": "Step_M1_2",
+            "predicate": "requiresCapability",
+            "object": "VisionCapability"
+          },
+          {
+            "subject": "Step_M1_2",
+            "predicate": "hasInstrument",
+            "object": "Microscope"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_M2_1": {
+        "message": "Precise membrane removal",
+        "triples": [
+          {
+            "subject": "Step_M2_1",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_M2_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_M2_1",
+            "predicate": "hasInstrument",
+            "object": "Forceps"
+          },
+          {
+            "subject": "Step_M2_1",
+            "predicate": "targetTissue",
+            "object": "RetinalMembrane"
+          },
+          {
+            "subject": "Step_M2_1",
+            "predicate": "forceValue",
+            "object": 0.1
+          }
+        ],
+        "action": "add"
+      },
+      "Step_M2_2": {
+        "message": "Checking for bleeding or complications",
+        "triples": [
+          {
+            "subject": "Step_M2_2",
+            "predicate": "requiresCapability",
+            "object": "VisionCapability"
+          },
+          {
+            "subject": "Step_M2_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "AssistantSurgeon"
+          },
+          {
+            "subject": "Step_M2_2",
+            "predicate": "hasInstrument",
+            "object": "Microscope"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_M3_1": {
+        "message": "Final inspection under microscope",
+        "triples": [
+          {
+            "subject": "Step_M3_1",
+            "predicate": "requiresCapability",
+            "object": "VisionCapability"
+          },
+          {
+            "subject": "Step_M3_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_M3_1",
+            "predicate": "hasInstrument",
+            "object": "Microscope"
+          },
+          {
+            "subject": "Step_M3_1",
+            "predicate": "targetTissue",
+            "object": "RetinalMembrane"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_M3_2": {
+        "message": "Procedure completion and documentation",
+        "triples": [
+          {
+            "subject": "Step_M3_2",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_M3_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ScrubNurse"
+          }
+        ],
+        "action": "add"
+      }
+    },
+    "RoboticProcedure": {
+      "Step_R1_1": {
+        "message": "Robotic suturing initiated",
+        "triples": [
+          {
+            "subject": "Step_R1_1",
+            "predicate": "requiresCapability",
+            "object": "MicroManipulationSkill"
+          },
+          {
+            "subject": "Step_R1_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "SurgicalRobot"
+          },
+          {
+            "subject": "Step_R1_1",
+            "predicate": "hasInstrument",
+            "object": "RoboticArm"
+          },
+          {
+            "subject": "Step_R1_1",
+            "predicate": "targetTissue",
+            "object": "Muscle"
+          },
+          {
+            "subject": "Step_R1_1",
+            "predicate": "forceValue",
+            "object": 0.2
+          }
+        ],
+        "action": "add"
+      },
+      "Step_R1_2": {
+        "message": "⚠️ Robot docking incomplete! Manual intervention required.",
+        "triples": [
+          {
+            "subject": "Step_R1_2",
+            "predicate": "requiresCapability",
+            "object": "AssistSkill"
+          },
+          {
+            "subject": "Step_R1_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "CirculatingNurse"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_R2_1": {
+        "message": "Robotic arm performing precise movements",
+        "triples": [
+          {
+            "subject": "Step_R2_1",
+            "predicate": "requiresCapability",
+            "object": "PrecisionGraspingSkill"
+          },
+          {
+            "subject": "Step_R2_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "SurgicalRobot"
+          },
+          {
+            "subject": "Step_R2_1",
+            "predicate": "hasInstrument",
+            "object": "RoboticArm"
+          },
+          {
+            "subject": "Step_R2_1",
+            "predicate": "targetTissue",
+            "object": "Fascia"
+          },
+          {
+            "subject": "Step_R2_1",
+            "predicate": "forceValue",
+            "object": 0.2
+          }
+        ],
+        "action": "add"
+      },
+      "Step_R2_2": {
+        "message": "Surgeon monitoring robotic operation",
+        "triples": [
+          {
+            "subject": "Step_R2_2",
+            "predicate": "requiresCapability",
+            "object": "VisionCapability"
+          },
+          {
+            "subject": "Step_R2_2",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_R2_3": {
+        "message": "⚠️ Force feedback indicates tissue resistance!",
+        "triples": [
+          {
+            "subject": "Step_R2_3",
+            "predicate": "forceValue",
+            "object": 0.8
+          },
+          {
+            "subject": "Step_R2_3",
+            "predicate": "hasInstrument",
+            "object": "RoboticArm"
+          }
+        ],
+        "action": "add"
+      },
+      "Step_R3_1": {
+        "message": "Robotic procedure completion",
+        "triples": [
+          {
+            "subject": "Step_R3_1",
+            "predicate": "requiresCapability",
+            "object": "Standard_Vision"
+          },
+          {
+            "subject": "Step_R3_1",
+            "predicate": "prov:wasAssociatedWith",
+            "object": "ChiefSurgeon"
+          },
+          {
+            "subject": "Step_R3_1",
+            "predicate": "hasInstrument",
+            "object": "RoboticArm"
+          }
+        ],
+        "action": "add"
+      }
+    }
+  }
+}

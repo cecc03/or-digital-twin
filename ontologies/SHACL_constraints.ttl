@@ -1,0 +1,424 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.semanticweb.org/Twin_OR/> .
+@prefix or: <http://www.semanticweb.org/Twin_OR/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix hi: <http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/> .
+
+#################################################################
+# STEP - Core validation with proper severity levels
+#################################################################
+:StepShape
+    a sh:NodeShape ;
+    sh:targetClass :Step ;
+    sh:property [
+        sh:path :stepAction ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Each Step must have at least one stepAction." ;
+    ] ;
+    sh:property [
+        sh:path :inPhase ;
+        sh:class :Phase ;
+        sh:maxCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Steps should be associated with a Phase." ;
+    ] .
+
+:RegularStepShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "or" ;
+                sh:namespace "http://www.semanticweb.org/Twin_OR/" ;
+            ]
+        ] ;
+        sh:select """
+            SELECT ?this
+            WHERE {
+                ?this a or:Step .
+                FILTER (
+                    CONTAINS(STR(?this), "Step_A") &&
+                    !CONTAINS(STR(?this), "autoStep")
+                )
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path :actor ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Each Step must have at least one actor." ;
+    ] ;
+    sh:property [
+        sh:path :performer ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Each Step must have a performer." ;
+    ] ;
+    sh:property [
+        sh:path :requiresCapability ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Each Step should specify at least one required capability." ;
+    ] .
+
+:AutoStepShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "or" ;
+                sh:namespace "http://www.semanticweb.org/Twin_OR/" ;
+            ]
+        ] ;
+        sh:select """
+            SELECT ?this
+            WHERE {
+                ?this a or:Step .
+                FILTER (CONTAINS(STR(?this), "autoStep"))
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path :actor ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Auto-generated steps may not have actors specified." ;
+    ] ;
+    sh:property [
+        sh:path :performer ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Auto-generated steps may not have performers specified." ;
+    ] .
+
+#################################################################
+# PHASE - Validation for phases
+#################################################################
+:PhaseShape
+    a sh:NodeShape ;
+    sh:targetClass :Phase ;
+    sh:property [
+        sh:path :phaseTask ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Each Phase must define a phaseTask." ;
+    ] ;
+    sh:property [
+        sh:path :phaseOrder ;
+        sh:or (
+            [ sh:datatype xsd:int ]
+            [ sh:datatype xsd:integer ]
+            [ sh:datatype xsd:decimal ]
+        ) ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Phases must have a phaseOrder (numeric value)." ;
+    ] ;
+    sh:property [
+        sh:path :phaseStartStep ;
+        sh:class :Step ;
+        sh:maxCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Phases may have a phaseStartStep." ;
+    ] .
+
+#################################################################
+# ACTOR - Validation with capability requirements
+#################################################################
+:ActorShape
+    a sh:NodeShape ;
+    sh:targetClass :Actor ;
+    sh:property [
+        sh:path :hasCapability ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Actors should have at least one capability." ;
+    ] .
+
+:SurgeonShape
+    a sh:NodeShape ;
+    sh:targetClass :Surgeon ;
+    sh:property [
+        sh:path :hasCapability ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Surgeons must have at least one capability." ;
+    ] .
+
+:RobotShape
+    a sh:NodeShape ;
+    sh:targetClass :Robot ;
+    sh:property [
+        sh:path :hasCapability ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Robots must have at least one capability." ;
+    ] .
+
+#################################################################
+# PLAN - Validation for surgical plans
+#################################################################
+:PlanShape
+    a sh:NodeShape ;
+    sh:targetClass :Plan ;
+    sh:property [
+        sh:path :hasPhase ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Each Plan must reference at least one Phase via hasPhase." ;
+    ] .
+
+#################################################################
+# LEGO-SPECIFIC VALIDATIONS
+#################################################################
+:LegoStepShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :materialUsed ;
+    sh:property [
+        sh:path :materialUsed ;
+        sh:nodeKind sh:IRI ;
+        sh:severity sh:Warning ;
+        sh:message "Lego steps should specify materials used." ;
+    ] ;
+    sh:property [
+        sh:path :blockPosition ;
+        sh:class :LegoBoardPositions ;
+        sh:maxCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Lego placement steps may specify block position." ;
+    ] .
+
+#################################################################
+# SURGICAL-SPECIFIC VALIDATIONS
+#################################################################
+:SurgicalInstrumentShape
+    a sh:NodeShape ;
+    sh:targetClass :Instrument ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Instruments should have a description in rdfs:comment." ;
+    ] .
+
+:TissueShape
+    a sh:NodeShape ;
+    sh:targetClass :Tissue ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Tissues should have a description in rdfs:comment." ;
+    ] .
+
+#################################################################
+# ACTION CORE VALIDATIONS
+#################################################################
+:ActionCoreShape
+    a sh:NodeShape ;
+    sh:targetClass :ActionCore ;
+    sh:property [
+        sh:path :forceValue ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 1.0 ;
+        sh:severity sh:Warning ;
+        sh:message "Force values must be between 0.0 and 1.0." ;
+    ] ;
+    sh:property [
+        sh:path :targetTissue ;
+        sh:class :Tissue ;
+        sh:severity sh:Info ;
+        sh:message "Surgical actions may specify target tissue." ;
+    ] ;
+    sh:property [
+        sh:path :hasInstrument ;
+        sh:class :Instrument ;
+        sh:severity sh:Info ;
+        sh:message "Surgical actions may specify instruments used." ;
+    ] .
+
+#################################################################
+# ACTION GROUP VALIDATION
+#################################################################
+:ActionGroupValidationShape
+    a sh:NodeShape ;
+    sh:targetClass :ActionGroup ;
+    sh:property [
+        sh:path [ sh:inversePath :implementsGroup ] ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Action groups may be implemented by steps." ;
+    ] .
+
+#################################################################
+# STEP SEQUENCING VALIDATION
+#################################################################
+:StepSequencingShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :followedBy, :follows ;
+    sh:property [
+        sh:path :followedBy ;
+        sh:class :Step ;
+        sh:severity sh:Info ;
+        sh:message "followedBy should reference valid Step instances." ;
+    ] ;
+    sh:property [
+        sh:path :follows ;
+        sh:class :Step ;
+        sh:severity sh:Info ;
+        sh:message "follows should reference valid Step instances." ;
+    ] .
+
+#################################################################
+# TOOL/INSTRUMENT USAGE VALIDATION
+#################################################################
+:ToolUsageShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :toolUsed ;
+    sh:property [
+        sh:path :toolUsed ;
+        sh:nodeKind sh:IRI ;
+        sh:or (
+            [ sh:class :Tool ]
+            [ sh:class :Instrument ]
+        ) ;
+        sh:severity sh:Info ;
+        sh:message "Tool usage should reference valid Tool or Instrument instances." ;
+    ] .
+
+#################################################################
+# COLLABORATION VALIDATION
+#################################################################
+:CollaborationShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :co-occur, :supportingTeamMember ;
+    sh:property [
+        sh:path :co-occur ;
+        sh:class :Step ;
+        sh:severity sh:Info ;
+        sh:message "co-occur should reference valid Step instances." ;
+    ] ;
+    sh:property [
+        sh:path :supportingTeamMember ;
+        sh:class :Actor ;
+        sh:severity sh:Info ;
+        sh:message "supportingTeamMember should reference valid Actor instances." ;
+    ] .
+
+#################################################################
+# CAPABILITY VALIDATION
+#################################################################
+:CapabilityShape
+    a sh:NodeShape ;
+    sh:targetClass hi:Capability ;
+    sh:property [
+        sh:path [ sh:inversePath :requiresCapability ] ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Capabilities may be required by steps." ;
+    ] .
+
+#################################################################
+# HELPER STEP VALIDATION
+#################################################################
+:HelperStepShape
+    a sh:NodeShape ;
+    sh:targetClass :Helper_Step ;
+    sh:property [
+        sh:path :stepAction ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Helper steps must have at least one stepAction." ;
+    ] ;
+    sh:property [
+        sh:path :actor ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Helper steps should have at least one actor." ;
+    ] .
+
+#################################################################
+# PHASE TRANSITION VALIDATION
+#################################################################
+:PhaseTransitionShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :alternativePhase ;
+    sh:property [
+        sh:path :alternativePhase ;
+        sh:class :Phase ;
+        sh:severity sh:Info ;
+        sh:message "Alternative phases should be valid Phase instances." ;
+    ] ;
+    sh:property [
+        sh:path :phaseFailure ;
+        sh:datatype xsd:boolean ;
+        sh:severity sh:Info ;
+        sh:message "Phase failure status should be a boolean value." ;
+    ] .
+
+#################################################################
+# DATA QUALITY CHECKS
+#################################################################
+:DataQualityShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf :correctAlignment ;
+    sh:property [
+        sh:path :correctAlignment ;
+        sh:datatype xsd:boolean ;
+        sh:severity sh:Info ;
+        sh:message "Alignment verification should be a boolean value." ;
+    ] .
+
+#################################################################
+# SURGICAL PROCEDURE STEPS - More lenient validation
+#################################################################
+:SurgicalProcedureStepShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "or" ;
+                sh:namespace "http://www.semanticweb.org/Twin_OR/" ;
+            ]
+        ] ;
+        sh:select """
+            SELECT ?this
+            WHERE {
+                ?this a or:Step .
+                FILTER (
+                    CONTAINS(STR(?this), "Step_L") ||
+                    CONTAINS(STR(?this), "Step_M") ||
+                    CONTAINS(STR(?this), "Step_R")
+                )
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path :stepAction ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Surgical procedure steps should have at least one stepAction." ;
+    ] ;
+    sh:property [
+        sh:path :actor ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Surgical procedure steps may specify actors." ;
+    ] ;
+    sh:property [
+        sh:path :performer ;
+        sh:minCount 0 ;
+        sh:severity sh:Info ;
+        sh:message "Surgical procedure steps may specify performers." ;
+    ] .

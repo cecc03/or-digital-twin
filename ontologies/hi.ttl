@@ -1,0 +1,175 @@
+@prefix hi: <http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51> a owl:Ontology .
+
+hi:Adaptiveness a hi:Capability,
+        owl:NamedIndividual .
+
+hi:Adult a hi:Human,
+        owl:NamedIndividual .
+
+hi:BDI a hi:Capability,
+        owl:NamedIndividual .
+
+hi:Child a hi:Human,
+        owl:NamedIndividual .
+
+hi:Collaboration-based a hi:InteractionMethod,
+        owl:NamedIndividual .
+
+hi:Collaborativeness a hi:Capability,
+        owl:NamedIndividual .
+
+hi:Communication a hi:Capability,
+        owl:NamedIndividual .
+
+hi:Contribution-based a hi:InteractionMethod,
+        owl:NamedIndividual .
+
+hi:Designer a hi:Human,
+        owl:NamedIndividual .
+
+hi:Explainability a hi:InteractionTask,
+        owl:NamedIndividual .
+
+hi:Generating a hi:ProcessingTask,
+        owl:NamedIndividual .
+
+hi:Hybrid a hi:ProcessingMethod,
+        owl:NamedIndividual .
+
+hi:Intelligent_System a hi:ArtificialAgent,
+        owl:NamedIndividual .
+
+hi:Learning a hi:ProcessingTask,
+        owl:NamedIndividual .
+
+hi:Multimodal a hi:InteractionMethod,
+        owl:NamedIndividual .
+
+hi:Neuro-symbolic a hi:ProcessingMethod,
+        owl:NamedIndividual .
+
+hi:Non-cooperative a hi:InteractionMethod,
+        owl:NamedIndividual .
+
+hi:Question-Answering a hi:InteractionTask,
+        owl:NamedIndividual .
+
+hi:Reasoning a hi:ProcessingTask,
+        owl:NamedIndividual .
+
+hi:Recommendation a hi:InteractionTask,
+        owl:NamedIndividual .
+
+hi:Responsibility a hi:Capability,
+        owl:NamedIndividual .
+
+hi:Robot a hi:ArtificialAgent,
+        owl:NamedIndividual .
+
+hi:Single-agent a hi:InteractionMethod,
+        owl:NamedIndividual .
+
+hi:Statistical a hi:ProcessingMethod,
+        owl:NamedIndividual .
+
+hi:Symbolic a hi:ProcessingMethod,
+        owl:NamedIndividual .
+
+hi:Teacher a hi:Human,
+        owl:NamedIndividual .
+
+hi:Transforming a hi:ProcessingTask,
+        owl:NamedIndividual .
+
+hi:Transparency a hi:Capability,
+        owl:NamedIndividual .
+
+hi:capability a owl:ObjectProperty ;
+    rdfs:domain hi:Actor ;
+    rdfs:range hi:Capability .
+
+hi:context a owl:ObjectProperty ;
+    rdfs:domain hi:Scenario ;
+    rdfs:range hi:Context .
+
+hi:domain a owl:ObjectProperty ;
+    rdfs:domain hi:Scenario ;
+    rdfs:range hi:Domain .
+
+hi:endgoal a owl:ObjectProperty ;
+    rdfs:domain hi:Scenario ;
+    rdfs:range hi:Endgoal .
+
+hi:hasEthicalConsideration a owl:ObjectProperty ;
+    rdfs:domain hi:Scenario ;
+    rdfs:range hi:EthicalConsideration .
+
+hi:hasInteraction a owl:ObjectProperty ;
+    rdfs:domain hi:Scenario ;
+    rdfs:range hi:Interaction .
+
+hi:inScenario a owl:ObjectProperty ;
+    rdfs:domain hi:Actor ;
+    rdfs:range hi:Scenario ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+hi:informationMethod a owl:ObjectProperty ;
+    rdfs:domain hi:InformationProcessing ;
+    rdfs:range hi:ProcessingMethod .
+
+hi:interactingAgent a owl:ObjectProperty ;
+    rdfs:domain hi:Interaction ;
+    rdfs:range hi:Actor .
+
+hi:interactionMethod a owl:ObjectProperty ;
+    rdfs:domain hi:Interaction ;
+    rdfs:range hi:InteractionMethod .
+
+hi:interactionTask a owl:ObjectProperty ;
+    rdfs:domain hi:Interaction ;
+    rdfs:range hi:InteractionTask .
+
+hi:processingInformation a owl:ObjectProperty ;
+    rdfs:domain hi:Actor ;
+    rdfs:range hi:InformationProcessing .
+
+hi:processingTask a owl:ObjectProperty ;
+    rdfs:domain hi:InformationProcessing ;
+    rdfs:range hi:ProcessingTask .
+
+hi:Context a owl:Class .
+
+hi:Domain a owl:Class .
+
+hi:Endgoal a owl:Class .
+
+hi:EthicalConsideration a owl:Class .
+
+hi:ArtificialAgent a owl:Class ;
+    rdfs:subClassOf hi:Actor .
+
+hi:InformationProcessing a owl:Class .
+
+hi:Human a owl:Class ;
+    rdfs:subClassOf hi:Actor .
+
+hi:Interaction a owl:Class .
+
+hi:InteractionTask a owl:Class .
+
+hi:ProcessingMethod a owl:Class .
+
+hi:ProcessingTask a owl:Class .
+
+hi:Actor a owl:Class .
+
+hi:InteractionMethod a owl:Class .
+
+hi:Scenario a owl:Class .
+
+hi:Capability a owl:Class .
+

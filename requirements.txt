@@ -1,0 +1,9 @@
+
+rdflib>=6.2.0
+pyshacl>=0.20.0
+owlready2>=0.37
+pynput>=1.7.6
+colorama>=0.4.6
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0

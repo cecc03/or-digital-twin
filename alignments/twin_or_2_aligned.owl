@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xml:base="http://www.semanticweb.org/Twin_OR_2_alignment"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:or="http://www.semanticweb.org/Twin_OR/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:hi="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_2">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/SquareLegoBlock"/>
+  </owl:NamedIndividual>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/RetinalMembrane">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Eye tissue</rdfs:comment>
+  </or:Tissue>
+  <or:Nurse rdf:about="http://www.semanticweb.org/Twin_OR/ScrubNurse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <or:hasCapability>
+      <hi:Capability rdf:about="http://www.semanticweb.org/Twin_OR/AssistSkill">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </hi:Capability>
+    </or:hasCapability>
+    <or:hasCapability>
+      <hi:Capability rdf:about="http://www.semanticweb.org/Twin_OR/PrecisionGraspingSkill">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </hi:Capability>
+    </or:hasCapability>
+  </or:Nurse>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Middle_Right_Square_Pos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/LegoBoardPositions"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A2_4">
+    <or:actor>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Scribe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Actor"/>
+        <or:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+      </owl:NamedIndividual>
+    </or:actor>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:stepAction>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Note_Taking">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+      </owl:NamedIndividual>
+    </or:stepAction>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A2_3">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase2"/>
+        <or:materialUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Lego_4"/>
+        <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Forceps"/>
+        <or:blockPosition rdf:resource="http://www.semanticweb.org/Twin_OR/Nearest_Pos"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Grasping"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Turning"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Perform_Placing_the_Lego_Block_in_the_Correct_Orientation"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A2_1">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase2"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Step"/>
+        <or:followedBy rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A2_2"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Identify_Correct_Lego"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A2_2">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Pick_Up_the_Lego_Block"/>
+        <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase2"/>
+        <or:materialUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Lego_4"/>
+        <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Forceps"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Grasping"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <or:followedBy rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A2_3"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:toolUsed>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Pen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Tool"/>
+      </owl:NamedIndividual>
+    </or:toolUsed>
+    <or:requiresCapability>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Standard_Vision">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Vision"/>
+      </owl:NamedIndividual>
+    </or:requiresCapability>
+  </owl:NamedIndividual>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/Muscle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Muscular tissue</rdfs:comment>
+  </or:Tissue>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/Microscope">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Magnification device</rdfs:comment>
+  </or:Instrument>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Sense_Errors">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/TissueApproxAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/TissueGripCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/Retractor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Tissue retraction instrument</rdfs:comment>
+  </or:Instrument>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/LineCoagulationAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/CoagulationCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <or:Nurse rdf:about="http://www.semanticweb.org/Twin_OR/CirculatingNurse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <or:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/AssistSkill"/>
+  </or:Nurse>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/Twin_OR/forceValue">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </owl:DatatypeProperty>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Sense">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A4_5">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A4_1">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:followedBy rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_2"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Micro_Vision"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Position_Camera_In_Required_Position"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A4_2">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Micro_Vision"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <or:hasHelperStep rdf:resource="http://www.semanticweb.org/Twin_OR/Helper_Step_A4_2_3_4"/>
+        <or:followedBy rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_3"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Identify_Correct_Lego"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A4_3">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Pick_Up_the_Lego_Block"/>
+        <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Forceps"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Grasping"/>
+        <or:hasHelperStep rdf:resource="http://www.semanticweb.org/Twin_OR/Helper_Step_A4_2_3_4"/>
+        <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase4"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A4_4">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Forceps"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Grasping"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Turning"/>
+        <or:hasHelperStep rdf:resource="http://www.semanticweb.org/Twin_OR/Helper_Step_A4_2_3_4"/>
+        <or:follows rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_3"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+        <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase4"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Perform_Placing_the_Lego_Block_in_the_Correct_Orientation"/>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:inPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/A_Phase5">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseStartStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A5_1"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Assembly_Verification_with_Robotic_Assistance"/>
+        <or:isFinalPhase rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</or:isFinalPhase>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:inPhase>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Note_Taking"/>
+    <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Pen"/>
+  </owl:NamedIndividual>
+  <owl:Ontology rdf:about="">
+    <rdfs:label>Twin-OR Alignment Ontology</rdfs:label>
+    <rdfs:comment>Complete alignment ontology with all individuals from base plus surgical extensions</rdfs:comment>
+    <owl:imports rdf:resource="http://www.w3.org/ns/prov-o#"/>
+    <owl:imports rdf:resource="file:///C:/Users/tomma/OneDrive%20-%20Vrije%20Universiteit%20Amsterdam/GitHub/bachelor-thesis-twin-or/ontologies/hi.ttl"/>
+  </owl:Ontology>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/NeedleHolder">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Suturing instrument</rdfs:comment>
+  </or:Instrument>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/Electrocautery">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Coagulation device</rdfs:comment>
+  </or:Instrument>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/Nerve">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Neural tissue</rdfs:comment>
+  </or:Tissue>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A5_2">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Note_Taking"/>
+    <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase5"/>
+    <or:co-occur>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A5_1">
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Check_the_Position_and_Correct_Orientation_of_the_Lego_Block"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Micro_Vision"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Robotic_Arm"/>
+        <or:correctAlignment rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</or:correctAlignment>
+      </owl:NamedIndividual>
+    </or:co-occur>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Pen"/>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/usesInstrument">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </rdf:Description>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/RoboticArm">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Robotic manipulation device</rdfs:comment>
+  </or:Instrument>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/Twin_OR/targetTissue">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/Twin_OR/Tissue"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </owl:ObjectProperty>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/ContinuousSutureAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/SuturingCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/InterruptedSutureAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/SuturingCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <or:Robot rdf:about="http://www.semanticweb.org/Twin_OR/SurgicalRobot">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <or:hasCapability>
+      <hi:Capability rdf:about="http://www.semanticweb.org/Twin_OR/MicroManipulationSkill">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </hi:Capability>
+    </or:hasCapability>
+    <or:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/PrecisionGraspingSkill"/>
+  </or:Robot>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/IrrigationCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Locate_the_Lego_Block_for_Placement">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/Fascia">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Connective tissue layer</rdfs:comment>
+  </or:Tissue>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/LaparoscopicCamera">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Minimally invasive visualization</rdfs:comment>
+  </or:Instrument>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/hasPrecondition">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_1">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/SquareLegoBlock"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Upper_Middle_Square_Pos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/LegoBoardPositions"/>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/Parameter">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/hasParameter">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </rdf:Description>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/Twin_OR/hasInstrument">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/Twin_OR/Instrument"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/Twin_OR/implementsGroup">
+    <rdfs:domain>
+      <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/Step">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+      </rdf:Description>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </owl:ObjectProperty>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Check_and_Confirm">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/generatesImage">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#generated"/>
+  </rdf:Description>
+  <or:Surgeon rdf:about="http://www.semanticweb.org/Twin_OR/ChiefSurgeon">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <or:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/MicroManipulationSkill"/>
+    <or:hasCapability>
+      <hi:Capability rdf:about="http://www.semanticweb.org/Twin_OR/VisionCapability">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+      </hi:Capability>
+    </or:hasCapability>
+  </or:Surgeon>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/AbdominalWall">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Abdominal tissue layers</rdfs:comment>
+  </or:Tissue>
+  <or:Instrument rdf:about="http://www.semanticweb.org/Twin_OR/Scalpel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Cutting instrument for incisions</rdfs:comment>
+  </or:Instrument>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/consumes">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Position">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/ImagingCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/BloodVessel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Vascular tissue</rdfs:comment>
+  </or:Tissue>
+  <or:Surgeon rdf:about="http://www.semanticweb.org/Twin_OR/AssistantSurgeon">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <or:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/MicroManipulationSkill"/>
+  </or:Surgeon>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/SpotCauteryAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/CoagulationCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <or:Tissue rdf:about="http://www.semanticweb.org/Twin_OR/Skin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment>Cutaneous tissue</rdfs:comment>
+  </or:Tissue>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lift">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Upper_Left_Rectangular_Pos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/LegoBoardPositions"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Orient">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/Twin_OR/motionParam">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_3">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/SquareLegoBlock"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/TissueRetractionAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/TissueGripCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/followsStep">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#wasInformedBy"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Middle_Left_Square_Pos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/LegoBoardPositions"/>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/consumesMaterial">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#used"/>
+  </rdf:Description>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/MembraneFenestrateAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/IncisionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/InteractionStep">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/InteractionTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Position_the_Lego_Block_on_Top_of_Corresponding_Lego_Block">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_5">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/RectangularLegoBlock"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Recognize_and_Locate">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/hasActionGroup">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAssociation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/hasCapability">
+    <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/hasCapability"/>
+  </rdf:Description>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/SkinIncisionAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/IncisionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/Patient">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/VesselOpeningAG">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/IncisionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionGroup"/>
+  </owl:Class>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/producesOutcome">
+    <owl:equivalentProperty rdf:resource="http://www.w3.org/ns/prov#generated"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/performedBy">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAssociatedWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/produces">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasGeneratedBy"/>
+  </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Forceps">
+    <rdf:type>
+      <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/Tool">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+      </rdf:Description>
+    </rdf:type>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Instrument"/>
+    <rdfs:comment>Grasping instrument</rdfs:comment>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/PlanA">
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/A_Phase2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseStartStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A2_1"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Initial_Assembly"/>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/A_Phase3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:alternativePhase rdf:resource="http://www.semanticweb.org/Twin_OR/B_Phase1"/>
+        <or:hasStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A3_2"/>
+        <or:phaseStartStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A3_1"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Assembly_Verification"/>
+        <or:phaseFailure rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</or:phaseFailure>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase5"/>
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/A_Phase1">
+        <or:hasStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_3"/>
+        <or:hasStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_4"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Preparation"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseStartStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_2"/>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/A_Phase4">
+        <or:alternativePhase rdf:resource="http://www.semanticweb.org/Twin_OR/C_Phase1"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Assembly_with_Robotic_Assistance"/>
+        <or:hasStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_1"/>
+        <or:hasStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_2"/>
+        <or:phaseStartStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A4_1"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseFailure rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</or:phaseFailure>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Plan"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/C_Phase3">
+    <or:phaseTask>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Assembly_Verification_with_Robotic_Assistance">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+      </owl:NamedIndividual>
+    </or:phaseTask>
+    <rdf:type>
+      <rdf:Description rdf:about="http://www.semanticweb.org/Twin_OR/Phase">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+      </rdf:Description>
+    </rdf:type>
+    <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</or:phaseOrder>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Reboot_Robotic_Arm">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/TissueGripCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A3_1">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+    <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase3"/>
+    <or:stepAction>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Check_the_Position_and_Correct_Orientation_of_the_Lego_Block">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+        <or:performedInStep rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A3_1"/>
+      </owl:NamedIndividual>
+    </or:stepAction>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/PlanC">
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/C_Phase1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Reboot_Robotic_Arm"/>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <or:hasPhase>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/C_Phase2">
+        <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Assembly_with_Robotic_Assistance"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+        <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</or:phaseOrder>
+      </owl:NamedIndividual>
+    </or:hasPhase>
+    <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/C_Phase3"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Plan"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Perform_Placing_the_Lego_Block_in_the_Correct_Orientation">
+    <or:hasPlan>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/PlanB">
+        <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/B_Phase2"/>
+        <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/B_Phase1"/>
+        <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/B_Phase3"/>
+        <or:hasPhase rdf:resource="http://www.semanticweb.org/Twin_OR/B_Phase4"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Plan"/>
+      </owl:NamedIndividual>
+    </or:hasPlan>
+    <or:hasPlan rdf:resource="http://www.semanticweb.org/Twin_OR/PlanC"/>
+    <or:hasPlan rdf:resource="http://www.semanticweb.org/Twin_OR/PlanA"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Event"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Nurse">
+    <or:hasVisionCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Actor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <hi:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/AssistSkill"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Helper_Step_A4_2_3_4">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+    <or:actor>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Robotic_Arm">
+        <or:hasVisionCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Micro_Vision"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Actor"/>
+      </owl:NamedIndividual>
+    </or:actor>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Helper_Step"/>
+    <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase4"/>
+    <or:stepAction>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Adjust_Microscope_Vision">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+      </owl:NamedIndividual>
+    </or:stepAction>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/B_Phase2">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+    <or:phaseTask>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Assembly_Verification">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+      </owl:NamedIndividual>
+    </or:phaseTask>
+    <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</or:phaseOrder>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Pick_Up_the_Lego_Block">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/IncisionCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/B_Phase1">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+    <or:phaseTask>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Initial_Assembly">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+      </owl:NamedIndividual>
+    </or:phaseTask>
+    <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</or:phaseOrder>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Position_Camera_In_Required_Position"/>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Micro_Vision">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Vision"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/Tissue">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/PhysicalObject"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A1_4">
+    <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+    <or:follows>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A1_3">
+        <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+        <or:materialUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Lego_4"/>
+        <or:materialUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Lego_Platform"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Step"/>
+        <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+        <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+        <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+        <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Gather_Materials"/>
+        <or:takesPlaceOn rdf:resource="http://www.semanticweb.org/Twin_OR/TableSurface"/>
+      </owl:NamedIndividual>
+    </or:follows>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:materialUsed>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_Platform">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Material"/>
+      </owl:NamedIndividual>
+    </or:materialUsed>
+    <or:stepAction>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Organize_Materials">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+      </owl:NamedIndividual>
+    </or:stepAction>
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Step"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/ActionGroup">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Lego_4">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/RectangularLegoBlock"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A3_2">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Note_Taking"/>
+    <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Pen"/>
+    <or:co-occur rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A3_1"/>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/B_Phase3">
+    <or:alternativePhase rdf:resource="http://www.semanticweb.org/Twin_OR/C_Phase1"/>
+    <or:phaseTask>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Assembly_with_Robotic_Assistance">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+      </owl:NamedIndividual>
+    </or:phaseTask>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+    <or:phaseFailure rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</or:phaseFailure>
+    <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</or:phaseOrder>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Surgeon">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Actor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <or:hasManipulationCapability>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Grasping">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Manipulation"/>
+      </owl:NamedIndividual>
+    </or:hasManipulationCapability>
+    <or:hasManipulationCapability>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Turning">
+        <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Manipulation"/>
+      </owl:NamedIndividual>
+    </or:hasManipulationCapability>
+    <or:hasVisionCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <hi:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/MicroManipulationSkill"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/TableSurface">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Surface"/>
+    <or:flat rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</or:flat>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A1_1">
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Scribe"/>
+    <or:co-occur rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_3"/>
+    <or:co-occur rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_4"/>
+    <or:stepAction rdf:resource="http://www.semanticweb.org/Twin_OR/Note_Taking"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Step"/>
+    <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase1"/>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Pen"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Identify_Correct_Lego"/>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/Robot">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/Actor"/>
+    <hi:hasCapability rdf:resource="http://www.semanticweb.org/Twin_OR/MicroManipulationSkill"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/CoagulationCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/B_Phase4">
+    <or:phaseTask rdf:resource="http://www.semanticweb.org/Twin_OR/Assembly_Verification_with_Robotic_Assistance"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Phase"/>
+    <or:phaseOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</or:phaseOrder>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Step_A1_2">
+    <or:supportingTeamMember rdf:resource="http://www.semanticweb.org/Twin_OR/Surgeon"/>
+    <or:toolUsed rdf:resource="http://www.semanticweb.org/Twin_OR/Forceps"/>
+    <or:followedBy rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_3"/>
+    <or:co-occur rdf:resource="http://www.semanticweb.org/Twin_OR/Step_A1_1"/>
+    <or:inPhase rdf:resource="http://www.semanticweb.org/Twin_OR/A_Phase1"/>
+    <or:requiresCapability rdf:resource="http://www.semanticweb.org/Twin_OR/Standard_Vision"/>
+    <or:stepAction>
+      <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Gather_Tools"/>
+    </or:stepAction>
+    <or:actor rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+    <or:performer rdf:resource="http://www.semanticweb.org/Twin_OR/Nurse"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/ActionCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Nearest_Pos">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/LegoBoardPositions"/>
+  </owl:NamedIndividual>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/Instrument">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/Twin_OR/SuturingCore">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/Twin_OR/ActionCore"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/vbr240/ontologies/2022/4/untitled-ontology-51/ProcessingTask"/>
+  </owl:Class>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Preparation">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Task"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/Twin_OR/Gather_Materials">
+    <rdf:type rdf:resource="http://www.semanticweb.org/Twin_OR/Action"/>
+  </owl:NamedIndividual>
+</rdf:RDF>
